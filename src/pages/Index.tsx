@@ -7,7 +7,7 @@ import BudgetRecommendations from "@/components/BudgetRecommendations";
 
 interface Transaction {
   id: string;
-  type: 'income' | 'expense';
+  type: 'income' | 'expense' | 'debt';
   amount: number;
   category: string;
   description: string;
@@ -34,13 +34,18 @@ const Index = () => {
     .filter(t => t.type === 'expense')
     .reduce((sum, t) => sum + t.amount, 0);
   
-  const savings = totalIncome - totalExpenses;
+  const totalDebts = transactions
+    .filter(t => t.type === 'debt')
+    .reduce((sum, t) => sum + t.amount, 0);
+  
+  const savings = totalIncome - totalExpenses - totalDebts;
 
   const stats = {
     totalIncome,
     totalExpenses,
+    totalDebts,
     savings,
-    budgetUsed: totalIncome > 0 ? (totalExpenses / totalIncome) * 100 : 0
+    budgetUsed: totalIncome > 0 ? ((totalExpenses + totalDebts) / totalIncome) * 100 : 0
   };
 
   // Determine bunny mood based on financial health
@@ -58,6 +63,15 @@ const Index = () => {
     
     if (transactions.length === 0) {
       return "Welcome to FinanceBunny! 🐰 I'm here to help you take control of your finances. Start by adding your first transaction below!";
+    }
+    
+    if (totalDebts > 0) {
+      const debtToIncomeRatio = totalIncome > 0 ? (totalDebts / totalIncome) * 100 : 0;
+      if (debtToIncomeRatio > 40) {
+        return `You have ₹${totalDebts.toLocaleString('en-IN')} in debt. Don't worry! Start with the smallest debt first and pay ₹500-1000 extra monthly. Every small step counts! 💪`;
+      } else {
+        return `Good news! Your debt of ₹${totalDebts.toLocaleString('en-IN')} is manageable. Try the 50/20/20/10 rule: pay 20% of income towards debt elimination! 🎯`;
+      }
     }
     
     if (savingsRate >= 20) {
@@ -108,7 +122,7 @@ const Index = () => {
           {/* Left Column - Transaction Form */}
           <div className="space-y-6">
             <TransactionForm onAddTransaction={addTransaction} />
-            <BudgetRecommendations income={totalIncome} />
+            <BudgetRecommendations income={totalIncome} totalDebts={totalDebts} />
           </div>
 
           {/* Right Column - Transaction List */}

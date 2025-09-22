@@ -5,7 +5,7 @@ import { TrendingUp, TrendingDown, Calendar } from "lucide-react";
 
 interface Transaction {
   id: string;
-  type: 'income' | 'expense';
+  type: 'income' | 'expense' | 'debt';
   amount: number;
   category: string;
   description: string;
@@ -18,9 +18,9 @@ interface TransactionListProps {
 
 const TransactionList = ({ transactions }: TransactionListProps) => {
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(amount);
   };
 
@@ -66,7 +66,9 @@ const TransactionList = ({ transactions }: TransactionListProps) => {
                     <div className={`p-2 rounded-full ${
                       transaction.type === 'income' 
                         ? 'bg-success/20 text-success' 
-                        : 'bg-destructive/20 text-destructive'
+                        : transaction.type === 'expense'
+                        ? 'bg-destructive/20 text-destructive'
+                        : 'bg-warning/20 text-warning'
                     }`}>
                       {transaction.type === 'income' ? (
                         <TrendingUp className="h-4 w-4" />
@@ -89,7 +91,7 @@ const TransactionList = ({ transactions }: TransactionListProps) => {
                   </div>
                   
                   <div className={`text-right font-medium ${
-                    transaction.type === 'income' ? 'text-success' : 'text-destructive'
+                    transaction.type === 'income' ? 'text-success' : transaction.type === 'expense' ? 'text-destructive' : 'text-warning'
                   }`}>
                     {transaction.type === 'income' ? '+' : '-'}
                     {formatCurrency(transaction.amount)}

@@ -4,6 +4,7 @@ import { TrendingUp, TrendingDown, DollarSign, Target } from "lucide-react";
 interface OverviewStats {
   totalIncome: number;
   totalExpenses: number;
+  totalDebts: number;
   savings: number;
   budgetUsed: number;
 }
@@ -13,13 +14,13 @@ interface FinancialOverviewProps {
 }
 
 const FinancialOverview = ({ stats }: FinancialOverviewProps) => {
-  const netBalance = stats.totalIncome - stats.totalExpenses;
+  const netBalance = stats.totalIncome - stats.totalExpenses - stats.totalDebts;
   const savingsRate = stats.totalIncome > 0 ? (stats.savings / stats.totalIncome) * 100 : 0;
   
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(amount);
   };
 
@@ -30,7 +31,7 @@ const FinancialOverview = ({ stats }: FinancialOverviewProps) => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
       <Card className="shadow-card border-primary/10 transition-smooth hover:shadow-orange-glow">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Income</CardTitle>
@@ -57,6 +58,21 @@ const FinancialOverview = ({ stats }: FinancialOverviewProps) => {
           </div>
           <p className="text-xs text-muted-foreground">
             +5.3% from last month
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-card border-primary/10 transition-smooth hover:shadow-orange-glow">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium">Total Debts</CardTitle>
+          <TrendingDown className="h-4 w-4 text-warning" />
+        </CardHeader>
+        <CardContent>
+          <div className="text-2xl font-bold text-warning">
+            {formatCurrency(stats.totalDebts)}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Focus on elimination
           </p>
         </CardContent>
       </Card>

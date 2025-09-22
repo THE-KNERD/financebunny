@@ -9,7 +9,7 @@ import { toast } from "@/hooks/use-toast";
 
 interface Transaction {
   id: string;
-  type: 'income' | 'expense';
+  type: 'income' | 'expense' | 'debt';
   amount: number;
   category: string;
   description: string;
@@ -21,13 +21,14 @@ interface TransactionFormProps {
 }
 
 const TransactionForm = ({ onAddTransaction }: TransactionFormProps) => {
-  const [type, setType] = useState<'income' | 'expense'>('expense');
+  const [type, setType] = useState<'income' | 'expense' | 'debt'>('expense');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
 
   const incomeCategories = ['Salary', 'Freelance', 'Investment', 'Bonus', 'Other Income'];
   const expenseCategories = ['Food', 'Transportation', 'Entertainment', 'Bills', 'Shopping', 'Healthcare', 'Other'];
+  const debtCategories = ['Credit Card', 'Personal Loan', 'Home Loan', 'Car Loan', 'Education Loan', 'Other Debt'];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +59,7 @@ const TransactionForm = ({ onAddTransaction }: TransactionFormProps) => {
 
     toast({
       title: "Transaction Added",
-      description: `${type === 'income' ? 'Income' : 'Expense'} of $${amount} has been recorded.`,
+      description: `${type === 'income' ? 'Income' : type === 'expense' ? 'Expense' : 'Debt/Loan'} of ₹${amount} has been recorded.`,
     });
   };
 
@@ -69,14 +70,16 @@ const TransactionForm = ({ onAddTransaction }: TransactionFormProps) => {
           <span>Add Transaction</span>
           {type === 'income' ? (
             <Plus className="h-5 w-5 text-success" />
-          ) : (
+          ) : type === 'expense' ? (
             <Minus className="h-5 w-5 text-destructive" />
+          ) : (
+            <Minus className="h-5 w-5 text-warning" />
           )}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-2">
             <Button
               type="button"
               variant={type === 'income' ? 'default' : 'outline'}
@@ -94,6 +97,15 @@ const TransactionForm = ({ onAddTransaction }: TransactionFormProps) => {
             >
               <Minus className="h-4 w-4 mr-2" />
               Expense
+            </Button>
+            <Button
+              type="button"
+              variant={type === 'debt' ? 'secondary' : 'outline'}
+              onClick={() => setType('debt')}
+              className="w-full"
+            >
+              <Minus className="h-4 w-4 mr-2" />
+              Debt/Loan
             </Button>
           </div>
 
@@ -116,7 +128,7 @@ const TransactionForm = ({ onAddTransaction }: TransactionFormProps) => {
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
-                {(type === 'income' ? incomeCategories : expenseCategories).map((cat) => (
+                {(type === 'income' ? incomeCategories : type === 'expense' ? expenseCategories : debtCategories).map((cat) => (
                   <SelectItem key={cat} value={cat}>
                     {cat}
                   </SelectItem>
