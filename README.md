@@ -1,50 +1,34 @@
-# financebunny
+ # 🐰 FinanceBunny
 
-Create a web app called FinanceBunny. The app should help users manage their finances in a fun and interactive way. The core features should include:
+*Smart financial management made fun, engaging, and accessible.*
 
-1. Income and Expense Tracker: Users can input their earnings and expenses to see a clear picture of their financial health.
+**[🚀 View Live App](https://financebunny.lovable.app)**
 
+## About The Project
 
-2. Budget Recommendations: The app will suggest how to allocate income into savings, loan repayment, and essential spending.
+Managing personal finances can often feel overwhelming, complicated, and dry. FinanceBunny bridges the gap between serious wealth management and an engaging user experience. Built for my first-ever hackathon, this web app helps users track their money, pay down debt, and learn about investing—all guided by an interactive, friendly companion. 
 
+The application features a sleek dark-mode interface (black base) with vibrant orange accents to keep the experience professional yet inviting.
 
-3. Loan Guidance: Provide advice on how to pay off loans efficiently and avoid unnecessary debt.
+## Core Features
 
+* **📊 Income & Expense Tracker:** Input earnings and daily expenses to get a crystal-clear visual of your overall financial health.
+* **💡 Smart Budget Recommendations:** Receive tailored suggestions on how to dynamically allocate your income across savings, essential spending, and debt repayment.
+* **📉 Loan & Debt Guidance:** Actionable advice and strategies for paying off loans efficiently while avoiding unnecessary debt traps.
+* **📈 Investment Tips:** Simple, beginner-friendly guidance on saving and investing money for long-term growth.
+* **🐰 The Interactive Bunny Guide:** Your personal financial companion! The bunny reacts to your financial behaviors, offers contextual tips, and makes building good money habits genuinely fun.
+* **📚 Financial Literacy Hub:** A built-in library of easy-to-understand resources and tutorials to boost your financial knowledge.
+* **🔒 Privacy & Security:** Designed with a strict focus on keeping sensitive user financial data safe and secure at all times.
 
-4. Investment Tips: Offer simple and clear guidance on saving and investing money for long-term growth.
+## Tech Stack
 
+* **Development & Deployment:** Built and deployed using [Lovable](https://lovable.dev).
 
-5. Interactive Bunny Guide: Include a friendly bunny character that guides users, offers tips, and encourages good financial habits. The bunny will react to users’ financial behaviors, making the experience engaging and fun.
+## Local Development
 
+If you prefer to run this project locally, you will need Node.js and npm installed on your machine.
 
-6. Educational Resources: Provide easy-to-understand guides and tutorials to boost financial literacy.
-
-
-7. Privacy and Security: Keep user data safe and secure at all times.
-
-
-
-The app should have a sleek black base color with orange accents to keep it professional yet inviting. And everything should be functional and working.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://financebunny.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/518ee9a2-ef0f-4523-a804-e5ee52cdff06).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/THE-KNERD/financebunny.git
+   cd financebunny
